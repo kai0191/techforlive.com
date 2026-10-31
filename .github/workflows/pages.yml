@@ -1,16 +1,90 @@
-name: Deploy site
+name: Build and deploy techforlive.com
+
+# Every 30 minutes: pull fresh tech news, publish any guide whose time has come,
+# rebuild the whole site and deploy it to GitHub Pages.
 on:
-  push: { branches: [main] }
+  push:
+    branches: [main]
+  schedule:
+    - cron: "7,37 * * * *"
   workflow_dispatch:
-permissions: { contents: read, pages: write, id-token: write }
-concurrency: { group: pages, cancel-in-progress: true }
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment: { name: github-pages, url: "${{ steps.d.outputs.page_url }}" }
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Remember which stories were already seen between runs
+      - name: Restore news cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/news.json
+          key: news-${{ github.run_id }}
+          restore-keys: news-
+
+      - name: Fetch live tech news
+        continue-on-error: true
+        run: python scripts/fetch_news.py
+
+      - name: Save news cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/news.json
+          key: news-${{ github.run_id }}
+
+      - name: Build site
+        run: python scripts/build.py
+
       - uses: actions/upload-pages-artifact@v3
-        with: { path: public }
-      - id: d
+        with:
+          path: public
+
+      - id: deploy
         uses: actions/deploy-pages@v4
+
+      # Tell Bing/Yandex (IndexNow) about guides that just went live
+      - name: Ping IndexNow
+        continue-on-error: true
+        run: |
+          if [ -s public/data/new-urls.txt ]; then
+            python - <<'EOF'
+          import json, urllib.request
+          urls = [u for u in open("public/data/new-urls.txt").read().split() if u]
+          key = json.load(open("site.json"))["indexnow_key"]
+          body = json.dumps({"host": "techforlive.com", "key": key, "keyLocation": f"https://techforlive.com/{key}.txt", "urlList": urls}).encode()
+          req = urllib.request.Request("https://api.indexnow.org/indexnow", body, {"Content-Type": "application/json"})
+          print(urllib.request.urlopen(req, timeout=20).status, urls)
+          EOF
+          fi
+
+      # Once a day, snapshot the news file into the repo. This also keeps the
+      # repository "active", so GitHub never pauses the 30-minute schedule.
+      - name: Daily snapshot commit
+        if: github.event_name == 'schedule'
+        run: |
+          if [ "$(date -u +%H)" = "03" ] && [ "$(date -u +%M)" -lt 30 ]; then
+            git config user.name "techforlive-bot"
+            git config user.email "techforlive-bot@users.noreply.github.com"
+            git add -f data/news.json
+            git commit -m "Daily news snapshot $(date -u +%F)" || exit 0
+            git push
+          fi

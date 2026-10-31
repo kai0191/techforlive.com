@@ -1,0 +1,22 @@
+<!-- {"name":"Screen PPI Calculator","title":"Screen PPI Calculator: Pixel Density & Sharpness Distance","desc":"Free PPI calculator for phones, laptops, monitors and TVs. Enter resolution and screen size to get pixels per inch, dot pitch and the distance where pixels disappear.","short":"Pixel density and the distance pixels vanish.","lede":"Enter a resolution and diagonal size to see pixel density, and how far away you can sit before individual pixels become invisible.","icon":"screen","section":"phones-batteries","guides":[]} -->
+<div class="fields">
+  <div><label for="w">Horizontal pixels</label><input id="w" type="number" value="2560" min="1"></div>
+  <div><label for="h">Vertical pixels</label><input id="h" type="number" value="1440" min="1"></div>
+  <div><label for="d">Diagonal size (inches)</label><input id="d" type="number" value="27" step="0.1" min="0.1"></div>
+  <div><label for="preset">Quick presets</label><select id="preset"><option value="">Choose…</option><option value="2560,1440,27">27" 1440p monitor</option><option value="3840,2160,27">27" 4K monitor</option><option value="1920,1080,24">24" 1080p monitor</option><option value="1920,1080,15.6">15.6" 1080p laptop</option><option value="2556,1179,6.1">6.1" phone (1179p)</option><option value="3840,2160,55">55" 4K TV</option><option value="3840,2160,65">65" 4K TV</option></select></div>
+</div>
+<div class="result" aria-live="polite"><small>Pixel density</small><span class="big" id="r">–</span>
+<div class="rgrid"><div><b id="pitch">–</b><span>Dot pitch</span></div><div><b id="dist">–</b><span>Pixels blend beyond</span></div><div><b id="dims">–</b><span>Screen width × height</span></div></div></div>
+<div class="prose"><h2>What PPI means in practice</h2>
+<p>PPI (pixels per inch) is the diagonal pixel count divided by the diagonal size. Higher PPI means sharper text at the same distance. The "pixels blend" distance uses the common rule that a person with 20/20 vision resolves about one arcminute; beyond that distance, more pixels add little visible sharpness.</p>
+<p>That is why a 65-inch 4K TV looks sharp from the sofa but would look soft as a desk monitor, while a phone needs very high PPI because it sits 30 cm from your eyes.</p></div>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};
+function run(){var w=+$('w').value,h=+$('h').value,d=+$('d').value;if(!(w>0&&h>0&&d>0))return;
+var ppi=Math.sqrt(w*w+h*h)/d,pitch=25.4/ppi,distIn=1/(ppi*Math.tan(Math.PI/10800));
+$('r').textContent=ppi.toFixed(0)+' PPI';$('pitch').textContent=pitch.toFixed(3)+' mm';
+$('dist').textContent=(distIn*2.54).toFixed(0)+' cm ('+distIn.toFixed(0)+'")';
+var r=w/h,hh=d/Math.sqrt(1+r*r),ww=hh*r;$('dims').textContent=ww.toFixed(1)+'" × '+hh.toFixed(1)+'"';}
+$('preset').addEventListener('change',function(){if(!this.value)return;var p=this.value.split(',');$('w').value=p[0];$('h').value=p[1];$('d').value=p[2];run()});
+document.querySelectorAll('.toolbox input').forEach(function(i){i.addEventListener('input',run)});run();})();
+</script>

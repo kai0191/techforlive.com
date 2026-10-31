@@ -1,0 +1,29 @@
+<!-- {"name":"Battery Life Calculator","title":"Battery Life Calculator: mAh, Wh & Power Bank Charges","desc":"Free battery life calculator. Turn mAh and volts into watt-hours, estimate runtime for any device and see how many phone charges a power bank really gives.","short":"Runtime from mAh, and real power-bank charges.","lede":"Work out how long a battery lasts, and how many full charges a power bank really delivers once conversion losses are counted.","icon":"bolt","section":"phones-batteries","guides":["smartphone-battery-life-increasing-tips","how-many-times-will-a-power-bank-charge-my-phone"]} -->
+<div class="fields">
+  <div><label for="cap">Battery capacity (mAh)</label><input id="cap" type="number" value="10000" min="1"></div>
+  <div><label for="volt">Battery voltage (V)</label><input id="volt" type="number" value="3.7" step="0.1" min="0.1"><small class="muted">Phone cells and most power banks: 3.6–3.85 V</small></div>
+  <div><label for="draw">Device power draw (W)</label><input id="draw" type="number" value="2" step="0.1" min="0.01"><small class="muted">Idle phone ~0.5–1 W, video streaming ~2–3 W, laptop 10–60 W</small></div>
+  <div><label for="eff">Conversion efficiency (%)</label><input id="eff" type="number" value="85" min="30" max="100"><small class="muted">Power banks typically lose 10–35% to heat and voltage conversion</small></div>
+  <div class="full"><label for="phone">Your phone's battery (mAh, for power-bank charges)</label><input id="phone" type="number" value="4500" min="1"></div>
+</div>
+<div class="result" aria-live="polite">
+  <small>Estimated runtime</small><span class="big" id="r-run">–</span>
+  <div class="rgrid"><div><b id="r-wh">–</b><span>Energy stored</span></div><div><b id="r-use">–</b><span>Usable after losses</span></div><div><b id="r-ch">–</b><span>Full phone charges</span></div></div>
+</div>
+<div class="prose">
+<h2>How the maths works</h2>
+<p>mAh alone does not tell you how much energy a battery holds, because it ignores voltage. Energy in watt-hours is <code>mAh × V ÷ 1000</code>. A 10,000 mAh power bank at 3.7 V stores 37 Wh.</p>
+<p>When a power bank charges a phone it boosts its cell voltage to 5 V or more for the USB cable, and the phone converts it back down. Each step turns some energy into heat, so only part of the 37 Wh reaches your phone. That is why a 10,000 mAh bank does not give two full charges to a 5,000 mAh phone.</p>
+<p>Runtime is simply usable watt-hours divided by the device's draw in watts. Real devices vary their draw constantly, so treat the result as a planning estimate.</p>
+</div>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};
+function f(n,d){return n.toLocaleString(undefined,{maximumFractionDigits:d===undefined?1:d})}
+function run(){var cap=+$('cap').value,v=+$('volt').value,w=+$('draw').value,e=+$('eff').value/100,ph=+$('phone').value;
+if(!(cap>0&&v>0&&w>0&&e>0)){return}
+var wh=cap*v/1000,use=wh*e,h=use/w,phoneWh=ph*3.85/1000;
+$('r-wh').textContent=f(wh)+' Wh';$('r-use').textContent=f(use)+' Wh';
+$('r-run').textContent=h>=48?f(h/24)+' days':(h>=1?Math.floor(h)+' h '+Math.round((h%1)*60)+' min':Math.round(h*60)+' min');
+$('r-ch').textContent=ph>0?f(use/phoneWh)+'×':'–';}
+document.querySelectorAll('.toolbox input').forEach(function(i){i.addEventListener('input',run)});run();})();
+</script>

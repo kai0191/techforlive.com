@@ -1,0 +1,19 @@
+<!-- {"name":"Storage Size Converter (GB vs GiB)","title":"Why Does My 1TB Drive Show 931GB? Storage Size Converter","desc":"Free storage converter: see why a 1 TB drive shows 931 GB in Windows, convert GB to GiB, and estimate how many photos, songs or hours of video fit.","short":"Why 1 TB shows as 931 GB, and what fits.","lede":"Drive makers count in powers of 1000, Windows counts in powers of 1024. Enter the size on the box to see what your computer will report and what fits on it.","icon":"drive","section":"pc-storage","guides":["fix-windows-low-disc-space-problem-using-software-manually","ultimate-guide-to-difference-computer-file-systems"]} -->
+<div class="fields">
+  <div><label for="v">Advertised size</label><input id="v" type="number" value="1" step="any" min="0"></div>
+  <div><label for="u">Unit on the box</label><select id="u"><option value="1e9">GB</option><option value="1e12" selected>TB</option></select></div>
+</div>
+<div class="result" aria-live="polite"><small>Windows will show about</small><span class="big" id="r">–</span>
+<div class="rgrid"><div><b id="ph">–</b><span>Phone photos (≈4 MB each)</span></div><div><b id="mu">–</b><span>Songs (≈8 MB each, 320 kbps)</span></div><div><b id="vi">–</b><span>Hours of 1080p video (≈4 GB/h)</span></div></div></div>
+[[amazon:portable SSD 1TB|Portable SSD|Fast, pocket-sized storage for backups and moving big files.]]
+<div class="prose"><h2>The 7% that "goes missing"</h2>
+<p>Storage makers define 1 TB as 1,000,000,000,000 bytes. Windows divides by 1024 at every step (it really shows tebibytes and gibibytes, but labels them TB and GB). One trillion bytes ÷ 1024⁴ = 0.909, so a "1 TB" drive appears as about 931 GB. Nothing is missing; the two numbers just use different rulers.</p>
+<p>macOS has used decimal units since 2009, so a Mac shows the same number as the box. Formatting and the file system also reserve a little space, and phones subtract the operating system before you get any.</p>
+<p>The "what fits" figures are rough averages. Photo sizes depend heavily on camera resolution and format (HEIC is smaller than JPEG), and video depends on bitrate.</p></div>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};
+function run(){var b=+$('v').value*+$('u').value,gib=b/Math.pow(1024,3);
+$('r').textContent=gib>=1024?(gib/1024).toFixed(2)+' TB':gib.toFixed(1)+' GB';
+$('ph').textContent=Math.floor(b/4e6).toLocaleString();$('mu').textContent=Math.floor(b/8e6).toLocaleString();$('vi').textContent=Math.floor(b/4e9).toLocaleString();}
+document.querySelectorAll('.toolbox input,.toolbox select').forEach(function(x){x.addEventListener('input',run)});run();})();
+</script>

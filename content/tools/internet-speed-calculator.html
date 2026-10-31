@@ -1,0 +1,21 @@
+<!-- {"name":"Internet Speed Needs Calculator","title":"How Much Internet Speed Do I Need? Household Calculator","desc":"Free internet speed calculator: add the people, 4K streams, video calls and gamers in your home to see the download and upload speed you actually need.","short":"The Mbps your household really needs.","lede":"Count what your household does at the same time at peak hour, and we add up the bandwidth with sensible headroom.","icon":"wifi","section":"internet-apps","guides":[]} -->
+<div class="fields">
+  <div><label for="hd">HD video streams at once</label><input id="hd" type="number" value="1" min="0"></div>
+  <div><label for="uhd">4K video streams at once</label><input id="uhd" type="number" value="1" min="0"></div>
+  <div><label for="calls">Video calls at once</label><input id="calls" type="number" value="1" min="0"></div>
+  <div><label for="game">Online gamers at once</label><input id="game" type="number" value="0" min="0"></div>
+  <div><label for="web">People browsing / social media</label><input id="web" type="number" value="2" min="0"></div>
+  <div><label for="up">Cloud backups or uploads running?</label><select id="up"><option value="0">No</option><option value="1">Yes, sometimes</option></select></div>
+</div>
+<div class="result" aria-live="polite"><small>Recommended plan (download)</small><span class="big" id="r">–</span>
+<div class="rgrid"><div><b id="peak">–</b><span>Peak use, no headroom</span></div><div><b id="upl">–</b><span>Suggested upload</span></div><div><b id="tier">–</b><span>Typical plan tier</span></div></div></div>
+<div class="prose"><h2>The numbers behind it</h2>
+<p>We use common published guidance per activity: about 5 Mbps for an HD stream, 25 Mbps for 4K (the figure Netflix recommends for Ultra HD), roughly 3–4 Mbps each way for an HD video call, 3–6 Mbps for online gaming (gaming needs low latency more than raw speed) and around 2 Mbps for browsing. Then we add 40% headroom, because speeds dip in the evening and over Wi-Fi.</p>
+<p>Upload matters if you video call, stream to Twitch or back up photos to the cloud. Cable plans often have far less upload than download; fibre is usually symmetrical.</p></div>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};
+function run(){var d=$('hd').value*5+$('uhd').value*25+$('calls').value*4+$('game').value*6+$('web').value*2,u=$('calls').value*4+$('game').value*1+$('web').value*0.5+($('up').value==1?10:0);
+var rec=Math.ceil(d*1.4/5)*5||10;$('peak').textContent=Math.round(d)+' Mbps';$('r').textContent=rec+' Mbps';$('upl').textContent=Math.max(5,Math.ceil(u*1.4))+' Mbps';
+var tiers=[25,50,100,200,300,500,1000],t=tiers.find(function(x){return x>=rec})||1000;$('tier').textContent=(t>=1000?'1 Gbps':t+' Mbps')+' plan';}
+document.querySelectorAll('.toolbox input,.toolbox select').forEach(function(i){i.addEventListener('input',run)});run();})();
+</script>

@@ -1,0 +1,21 @@
+<!-- {"name":"Download Time Calculator","title":"Download Time Calculator: How Long Will It Take?","desc":"Free download time calculator. Enter a file size and your internet speed in Mbps to see how long a game, movie or backup will take, with real-world overhead.","short":"How long a file takes at your Mbps.","lede":"Enter a file size and your connection speed. We convert megabits to megabytes for you and add realistic overhead.","icon":"download","section":"internet-apps","guides":["best-free-online-data-backup-service"]} -->
+<div class="fields">
+  <div><label for="size">File size</label><input id="size" type="number" value="100" min="0" step="any"></div>
+  <div><label for="unit">Unit</label><select id="unit"><option value="1e6">MB</option><option value="1e9" selected>GB</option><option value="1e12">TB</option></select></div>
+  <div><label for="speed">Connection speed</label><input id="speed" type="number" value="100" min="0.01" step="any"></div>
+  <div><label for="sunit">Speed unit</label><select id="sunit"><option value="1e6" selected>Mbps (megabits/s)</option><option value="1e9">Gbps</option><option value="8e6">MB/s (megabytes/s)</option></select></div>
+  <div class="full"><label for="ov">Real-world overhead (%)</label><input id="ov" type="number" value="10" min="0" max="80"><small class="muted">Protocol overhead, Wi-Fi and server limits usually cost 5–20%.</small></div>
+</div>
+<div class="result" aria-live="polite"><small>Estimated download time</small><span class="big" id="r">–</span>
+<div class="rgrid"><div><b id="ideal">–</b><span>Perfect conditions</span></div><div><b id="mbs">–</b><span>Effective MB/s</span></div><div><b id="hr">–</b><span>Data per hour</span></div></div></div>
+<div class="prose"><h2>Why a "100 Mbps" line does not download 100 MB per second</h2>
+<p>Internet speeds are sold in <b>megabits</b> per second, while file sizes use <b>megabytes</b>. There are 8 bits in a byte, so 100 Mbps moves at most 12.5 MB each second. On top of that, network protocols, Wi-Fi interference and busy servers shave off some speed, which is what the overhead box accounts for.</p>
+<p>Game launchers and some download managers show speed in MB/s, while speed tests show Mbps. If the numbers look eight times apart, that is the reason.</p></div>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};
+function t(s){if(!isFinite(s))return'–';if(s<60)return Math.max(1,Math.round(s))+' s';var h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=Math.round(s%60);if(h>=48)return (s/86400).toFixed(1)+' days';return (h?h+' h ':'')+m+' min'+(h?'':' '+sec+' s')}
+function run(){var bytes=+$('size').value*+$('unit').value,bps=+$('speed').value*+$('sunit').value,ov=+$('ov').value/100;if(!(bps>0))return;
+var ideal=bytes*8/bps,real=ideal/(1-Math.min(ov,.95));$('r').textContent=t(real);$('ideal').textContent=t(ideal);
+var mbs=bps*(1-ov)/8/1e6;$('mbs').textContent=mbs.toFixed(mbs<10?2:1)+' MB/s';$('hr').textContent=(mbs*3600/1000).toFixed(1)+' GB';}
+document.querySelectorAll('.toolbox input,.toolbox select').forEach(function(i){i.addEventListener('input',run)});run();})();
+</script>
