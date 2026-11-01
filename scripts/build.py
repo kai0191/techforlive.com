@@ -109,7 +109,21 @@ LOGO_MARK = ('<svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect wid
 
 
 # ---------------------------------------------------------------- layout
+# ContentForge's visitor and product-click counter (Traffic + Summary pages there). ContentForge
+# writes this file into the repository on every publish, so the counter stays current by itself.
+BEACON_FILE = os.path.join(ROOT, ".contentforge", "beacon.html")
+BEACON = open(BEACON_FILE, encoding="utf-8").read().strip() if os.path.exists(BEACON_FILE) else ""
+
+
+def tag_offers(html_out):
+    """Name the partner on every partner link, so a click is counted against the right one."""
+    for key, o in OFFERS.items():
+        html_out = html_out.replace(f'href="{o["url"]}"', f'href="{o["url"]}" data-offer="{key}"')
+    return html_out
+
+
 def page(path, title, desc, body, *, schema=None, og_type="website", noindex=False, extra_head="", active=""):
+    body = tag_offers(body)
     canon = URL + path
     full_title = title if "TechForLive" in title else f"{title} | TechForLive"
     nav = [("/live/", "Live Wire", "live"), ("/guides/", "Guides", "guides"), ("/tools/", "Free Tools", "tools"), ("/about/", "About", "about")]
@@ -170,6 +184,7 @@ def page(path, title, desc, body, *, schema=None, og_type="website", noindex=Fal
   <div class="wrap legal">© {NOW.year} TechForLive. Some links earn us a commission at no extra cost to you. <a href="/disclosure/">How that works</a>.</div>
 </footer>
 <script src="/assets/app.js?v={BUILD_V}" defer></script>
+{BEACON}
 </body>
 </html>"""
 
