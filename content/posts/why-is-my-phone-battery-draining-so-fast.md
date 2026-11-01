@@ -1,7 +1,7 @@
 ---
 title: Phone battery draining fast: worn battery or a rogue app first?
 seo_title: Phone battery draining fast? Worn battery or rogue app first
-description: A step-by-step order of checks for a fast-draining phone battery: read battery health first, then usage graphs, then the sudden-drain suspects like signal and
+description: Check battery health, then the usage graph, then signal and recent installs. One order, so you don't fix the wrong thing.
 date: 2026-11-01T03:31:00
 updated: 2026-11-01T03:31:00
 category: phones-batteries
@@ -17,7 +17,7 @@ cf_id: 10161
 <p>Do this first because it splits the case in two. A genuinely worn battery drains fast at all times, on every app, even idle overnight. Everything else on this page explains the other kind of drain: sudden, patchy, or tied to one app or one situation.</p>
 <table><caption>What the health reading tells you</caption><thead><tr><th>Maximum capacity</th><th>What it means</th><th>What to do</th></tr></thead><tbody><tr><td>90% and up</td><td>Battery essentially healthy</td><td>Look for a software or signal cause</td></tr><tr><td>85-90%</td><td>Normal wear for 1-2 years of use</td><td>Software checks still come first</td></tr><tr><td>80-85%</td><td>Wear is contributing</td><td>Check usage graph, expect to replace soon</td></tr><tr><td>Below 80%</td><td>Battery is worn out by maker criteria</td><td>Replacement is the fix; software tips won&#x27;t rescue it</td></tr></tbody></table>
 <div class="note"><b>Rule of thumb:</b> One reading decides half the case: under 80% capacity, chase a replacement, not a settings tweak.</div>
-<table><thead><tr><th>At a glance</th><th></th></tr></thead><tbody><tr><td>Worn battery threshold</td><td>below 80% maximum capacity</td></tr><tr><td>Healthy capacity</td><td>85% or higher</td></tr><tr><td>Apple service criterion</td><td>80% capacity</td></tr><tr><td>iPhone health path</td><td>Settings &gt; Battery &gt; Battery Health &amp; Charging</td></tr><tr><td>Worst signal for drain</td><td>one or two bars, constantly searching</td></tr><tr><td>New-phone settling</td><td>a few days, then normal</td></tr><tr><td>Fastest fix for bad signal</td><td>airplane mode or Wi-Fi calling</td></tr></tbody></table>
+<table><thead><tr><th>At a glance</th><th>Answer</th></tr></thead><tbody><tr><td>Worn battery threshold</td><td>below 80% maximum capacity</td></tr><tr><td>Healthy capacity</td><td>85% or higher</td></tr><tr><td>Apple service criterion</td><td>80% capacity</td></tr><tr><td>iPhone health path</td><td>Settings &gt; Battery &gt; Battery Health &amp; Charging</td></tr><tr><td>Worst signal for drain</td><td>one or two bars, constantly searching</td></tr><tr><td>New-phone settling</td><td>a few days, then normal</td></tr><tr><td>Fastest fix for bad signal</td><td>airplane mode or Wi-Fi calling</td></tr></tbody></table>
 [[tool:battery-life-calculator]]
 <h2>Use the battery usage graph to find the app eating the charge</h2>
 <p>Both operating systems keep a per-app record of what used the battery. On iPhone it is <strong>Settings &gt; Battery</strong> and scroll to the list under the graph; on Android it is <strong>Settings &gt; Battery &gt; Battery usage</strong> (the exact path varies by brand and version). The graph at the top shows battery level against time, and the bars underneath show <strong>screen-on time</strong> versus background time.</p>
