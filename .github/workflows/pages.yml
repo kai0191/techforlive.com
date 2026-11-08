@@ -58,8 +58,26 @@ jobs:
         with:
           path: public
 
+      # GitHub's Pages queue sometimes stalls ("deployment_queued" for 10 minutes, then
+      # "Deployment failed, try again later" - 6 times in Nov 4-6). Wait at most 4 minutes,
+      # then try once more; if GitHub is still stuck, the next run (30 min) deploys anyway.
       - id: deploy
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 240000
+
+      - name: Retry the deploy once
+        id: deploy2
+        if: steps.deploy.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 300000
+
+      - name: Note a GitHub Pages hiccup
+        if: steps.deploy.outcome == 'failure' && steps.deploy2.outcome == 'failure'
+        run: echo "::warning::GitHub Pages did not take this deploy (their queue was stuck). The next run deploys the site; nothing is lost."
 
       # Tell Bing/Yandex (IndexNow) about guides that just went live
       - name: Ping IndexNow

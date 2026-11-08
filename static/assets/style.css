@@ -94,6 +94,35 @@ h1{font-size:clamp(1.9rem,4.4vw,3.1rem)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .grid.two-col{grid-template-columns:repeat(2,1fr)}
 .feat{display:grid;grid-template-columns:1fr 2fr;gap:16px}.feat .grid{grid-template-columns:repeat(2,1fr)}
+/* newest guide: a wide banner + an "also new" list, then a 3-up grid (no tall empty dark column) */
+.featrow{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.featrow .card.big{position:relative;overflow:hidden;min-height:0;padding:30px;justify-content:center}
+.featrow .card.big .fimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28}
+.featrow .card.big>*:not(.fimg){position:relative}
+.featrow .card.big h3{font-size:clamp(1.5rem,2.6vw,2.1rem);max-width:30ch}
+.featrow .card.big p{flex:0;max-width:62ch}
+.featrow .card.big .go{display:inline-block;margin-top:6px;color:var(--lime);font-weight:700}
+.card.latest{gap:6px}.card.latest h3{display:flex;align-items:center;gap:8px;font-size:1.05rem}
+.card.latest ol{margin:0;padding:0;list-style:none;counter-reset:n;display:grid;gap:2px;flex:1}
+.card.latest li{counter-increment:n;display:grid;grid-template-columns:26px 1fr;padding:9px 0;border-top:1px solid var(--line)}
+.card.latest li::before{content:counter(n);font:700 .95rem var(--h);color:var(--limeT)}
+.card.latest li a{text-decoration:none;font-weight:600;line-height:1.35}.card.latest li a:hover{text-decoration:underline}
+.card.latest li small{grid-column:2;color:var(--muted);font-size:.78rem}
+.card.latest .more{font-weight:600;color:var(--limeT);text-decoration:none}
+.grid.three{grid-template-columns:repeat(3,1fr)}
+/* pictures in guides (Muse checks every one) and story pages */
+.hero-img{margin:0 0 26px;max-width:860px}.hero-img img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r);display:block}
+.prose figure.fig{margin:1.4em 0}.prose figure.fig img{width:100%;height:auto;border-radius:12px;display:block}
+.prose figcaption,.story-img figcaption{font-size:.8rem;color:var(--muted);margin-top:6px}
+.story h1{font-size:clamp(1.6rem,3.4vw,2.4rem);margin:.3em 0 .6em}
+.story .eyebrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+.story .eyebrow .src{width:28px;height:28px;font-size:.66rem;border-radius:8px}
+.story-img{margin:0 0 18px}.story-img img{width:100%;max-height:460px;object-fit:cover;border-radius:var(--r);display:block}
+.excerpt{margin:0 0 18px;padding:16px 20px;border-left:4px solid var(--lime);background:var(--card);border-radius:0 12px 12px 0;box-shadow:var(--shadow)}
+.excerpt p{margin:0 0 6px;font-size:1.08rem}.excerpt cite{font-style:normal;font-size:.82rem;color:var(--muted)}
+.readon{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+ul.also{list-style:none;margin:0;padding:0}ul.also li{padding:8px 0;border-top:1px solid var(--line);font-size:.9rem;line-height:1.35}
+ul.also a{text-decoration:none}ul.also a:hover{text-decoration:underline}ul.also b{display:block;font-size:.76rem;color:var(--muted)}
 .card{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
 .card:hover{transform:translateY(-2px);border-color:var(--limeT)}
 .card h3{font-size:1.12rem;margin:0}.card p{margin:0;color:var(--muted);font-size:.93rem;flex:1}
@@ -115,8 +144,8 @@ h1{font-size:clamp(1.9rem,4.4vw,3.1rem)}
 .sec .ic{grid-row:span 2;width:38px;height:38px;padding:8px;border-radius:10px;background:var(--soft);color:var(--limeT)}
 .sec span{font-size:.84rem;color:var(--muted)}.sec:hover{border-color:var(--limeT)}
 .since{margin-top:16px;padding:16px;border-radius:14px;background:var(--ink);color:#c2cbe0;font-size:.92rem}.since b{color:var(--lime)}
-@media (max-width:920px){.grid,.feat,.feat .grid,.tools,.tools.big,.two,.secs.row{grid-template-columns:1fr 1fr}.feat{grid-template-columns:1fr}}
-@media (max-width:600px){.grid,.grid.two-col,.feat .grid,.tools,.tools.big,.two,.secs.row,.pgrid{grid-template-columns:1fr!important}}
+@media (max-width:920px){.grid,.feat,.feat .grid,.tools,.tools.big,.two,.secs.row{grid-template-columns:1fr 1fr}.feat{grid-template-columns:1fr}.featrow{grid-template-columns:1fr}.featrow .card.big{min-height:240px}.grid.three{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.featrow .card.big{padding:22px;min-height:0}.grid.three,.grid,.grid.two-col,.feat .grid,.tools,.tools.big,.two,.secs.row,.pgrid{grid-template-columns:1fr!important}}
 
 /* wire */
 .wire{display:flex;flex-direction:column}

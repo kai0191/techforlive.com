@@ -122,8 +122,9 @@ def tag_offers(html_out):
     return html_out
 
 
-def page(path, title, desc, body, *, schema=None, og_type="website", noindex=False, extra_head="", active=""):
+def page(path, title, desc, body, *, schema=None, og_type="website", noindex=False, extra_head="", active="", og_image=""):
     body = tag_offers(body)
+    og_image = og_image if og_image.startswith("http") else (URL + og_image if og_image.startswith("/") else URL + "/assets/og.png")
     canon = URL + path
     full_title = title if "TechForLive" in title else f"{title} | TechForLive"
     nav = [("/live/", "Live Wire", "live"), ("/guides/", "Guides", "guides"), ("/tools/", "Free Tools", "tools"), ("/about/", "About", "about")]
@@ -146,7 +147,7 @@ def page(path, title, desc, body, *, schema=None, og_type="website", noindex=Fal
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:url" content="{canon}">
-<meta property="og:image" content="{URL}/assets/og.png">
+<meta property="og:image" content="{esc(og_image)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1220">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -176,7 +177,7 @@ def page(path, title, desc, body, *, schema=None, og_type="website", noindex=Fal
   <div class="wrap fgrid">
     <div><a class="brand" href="/">{LOGO_MARK}<span class="word">TechFor<b>Live</b></span></a>
       <p>{esc(CFG['tagline'])}. Online since {CFG['since']}.</p>
-      <p class="small">Headlines on the Live Wire belong to the newsrooms that published them and link straight to their stories.</p></div>
+      <p class="small">Headlines, excerpts and pictures on the Live Wire belong to the newsrooms that published them; every story page links to the original.</p></div>
     <div><h4>Guides</h4>{''.join(f'<a href="/{s["slug"]}/">{esc(s["name"])}</a>' for s in CFG["sections"])}</div>
     <div><h4>Live Wire</h4>{''.join(f'<a href="/live/{k}/">{esc(v)}</a>' for k, v in DESK_ORDER)}</div>
     <div><h4>TechForLive</h4><a href="/tools/">Free tools</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/disclosure/">Affiliate disclosure</a><a href="/privacy/">Privacy</a><a href="/feed.xml">RSS feed</a></div>
@@ -210,6 +211,13 @@ DESK_ORDER = [("ai", "AI"), ("phones", "Phones"), ("security", "Security"), ("pc
               ("apps", "Apps & Web"), ("gaming", "Gaming"), ("science", "Science & Space"), ("more", "More Tech")]
 
 
+def story_url(it):
+    """The on-site page for one wire story: the reader stays on TechForLive, sees the excerpt, who
+    else covers it and our related guides, and can still open the original article."""
+    words_ = re.sub(r"[^a-z0-9]+", "-", it["title"].lower()).strip("-")[:60].rstrip("-")
+    return f"/news/{words_ or 'story'}-{it['id'][:6]}/"
+
+
 def ago_attr(iso):
     return f'<time datetime="{iso}" data-ago>{datetime.fromisoformat(iso).strftime("%H:%M UTC")}</time>'
 
@@ -219,11 +227,11 @@ def news_item(it, others=None, compact=False):
     badge = f'<span class="src" style="--c:{src_color(it["source"])}">{esc(initials(it["source"]))}</span>'
     heat = ""
     if it.get("heat", 1) > 1 and others:
-        lst = "".join(f'<li><a href="{esc(o["link"])}" rel="nofollow noopener" target="_blank">{esc(o["source"])}: {esc(o["title"])}</a></li>' for o in others)
+        lst = "".join(f'<li><a href="{story_url(o)}">{esc(o["source"])}: {esc(o["title"])}</a></li>' for o in others)
         heat = f'<details class="heat"><summary>{icon("bolt")} {it["heat"]} outlets on this</summary><ul>{lst}</ul></details>'
     summ = "" if compact or not it.get("summary") else f'<p>{esc(it["summary"][:170])}</p>'
     hn = f' · <a href="{esc(it["hn"])}" rel="nofollow noopener" target="_blank">discuss</a>' if it.get("hn") else ""
-    return (f'<article class="wire-item" data-desk="{it["desk"]}">{badge}<div><h3><a href="{esc(it["link"])}" rel="nofollow noopener" target="_blank">{esc(it["title"])}</a></h3>'
+    return (f'<article class="wire-item" data-desk="{it["desk"]}">{badge}<div><h3><a href="{story_url(it)}">{esc(it["title"])}</a></h3>'
             f'{summ}<div class="meta"><b>{s}</b> · {ago_attr(it["published"])} · <a href="/live/{it["desk"]}/">{esc(dict(DESK_ORDER).get(it["desk"], "More"))}</a>{hn}</div>{heat}</div></article>')
 
 
@@ -249,7 +257,7 @@ def heat_board(items, n=6):
         cnt = len({x["source"] for x in g})
         srcs = ", ".join(sorted({x["source"] for x in g}))
         rows.append(f'<li><div class="hb-bar" style="--w:{int(cnt / top * 100)}%"><span>{cnt}</span></div>'
-                    f'<a href="{esc(lead["link"])}" rel="nofollow noopener" target="_blank">{esc(lead["title"])}</a>'
+                    f'<a href="{story_url(lead)}">{esc(lead["title"])}</a>'
                     f'<small>{esc(srcs)} · first seen {ago_attr(lead["first_seen"])}</small></li>')
     return f'<ol class="heatboard">{"".join(rows)}</ol>'
 
@@ -335,14 +343,15 @@ def post_card(p, big=False):
 def build_home(posts, news):
     items = news["items"]
     by = clusters(items)
-    ticker = "".join(f'<a href="{esc(i["link"])}" rel="nofollow noopener" target="_blank"><b>{esc(i["source"])}</b> {esc(i["title"])}</a>' for i in items[:16])
+    ticker = "".join(f'<a href="{story_url(i)}"><b>{esc(i["source"])}</b> {esc(i["title"])}</a>' for i in items[:16])
     day = (NOW - timedelta(hours=24)).isoformat()
     counts = {k: sum(1 for i in items if i["desk"] == k and i["published"] >= day) for k, _ in DESK_ORDER}
     mx = max(counts.values() or [1]) or 1
     pulse = "".join(f'<a class="pulse" href="/live/{k}/" style="--p:{counts[k] / mx:.2f}"><span>{esc(v)}</span><b>{counts[k]}</b><i></i></a>' for k, v in DESK_ORDER)
     latest = "".join(news_item(i, compact=True) for i in items[:10])
     feat = posts[0] if posts else None
-    cards = "".join(post_card(p) for p in posts[1:10])
+    cards = "".join(post_card(p) for p in posts[1:7])
+    more = "".join(f'<li><a href="/{p["slug"]}/">{esc(p["title"])}</a><small>{fmt_date(p["updated_dt"])}</small></li>' for p in posts[7:11])
     tools = "".join(f'<a class="tool" href="/tools/{t["slug"]}/">{icon(t["icon"])}<b>{esc(t["name"])}</b><span>{esc(t["short"])}</span></a>' for t in TOOLS.values())
     secs = "".join(f'<a class="sec" href="/{s["slug"]}/">{icon(s["icon"])}<b>{esc(s["name"])}</b><span>{esc(s["blurb"])}</span></a>' for s in CFG["sections"])
     nsrc = len([1 for v in news.get("status", {}).values() if isinstance(v, int)]) or 15
@@ -366,7 +375,7 @@ def build_home(posts, news):
 </section>
 <section class="wrap block">
   <div class="shead"><h2>Fresh guides</h2><a href="/guides/">All guides →</a></div>
-  <div class="feat">{post_card(feat, True) if feat else ''}<div class="grid">{cards}</div></div>
+  {feat_card(feat, more) if feat else ''}<div class="grid three">{cards}</div>
 </section>
 <section class="band"><div class="wrap block">
   <div class="shead"><h2>Free tech calculators</h2><a href="/tools/">All tools →</a></div>
@@ -435,6 +444,91 @@ def build_live(news):
     write("/data/latest.json", json.dumps({"updated": news["updated"], "count": len(items), "top": [i["id"] for i in items[:20]]}))
 
 
+def feat_card(p, more):
+    """The newest guide as a wide banner (it used to be a tall dark column with empty space under it)."""
+    s = SECTIONS.get(p["category"], {"name": "Guide", "icon": "spark", "slug": "guides"})
+    mins = max(2, round(words(p["body"]) / 220))
+    img = f'<img class="fimg" src="{esc(p["image"])}" alt="" loading="lazy">' if p.get("image") else ""
+    return (f'<div class="featrow"><a class="card big" href="/{p["slug"]}/">{img}<span class="tag">{icon(s["icon"])}{esc(s["name"])} · Newest guide</span>'
+            f'<h3>{esc(p["title"])}</h3><p>{esc(p["description"])}</p><span class="cmeta">{mins} min read · Updated {fmt_date(p["updated_dt"])}</span>'
+            f'<span class="go">Read the guide →</span></a>'
+            f'<div class="card latest"><h3>{icon("spark")} Also new</h3><ol>{more}</ol><a class="more" href="/guides/">All guides →</a></div></div>')
+
+
+STOP = set("the a an and or of to in on for with is are was were be at by from as it its this that how what why your you new now will can over into after about more than".split())
+
+
+def _toks(text):
+    return {w for w in re.findall(r"[a-z0-9]+", text.lower()) if len(w) > 2 and w not in STOP}
+
+
+def related_guides(it, posts, n=3):
+    """Guides that share the most words with the story; the desk's own guides break ties."""
+    tk = _toks(it["title"] + " " + it.get("summary", ""))
+    scored = []
+    for p in posts:
+        ov = len(tk & _toks(p["title"] + " " + p.get("description", "")))
+        desk = 1 if (p.get("desk") or SECTIONS.get(p["category"], {}).get("desk")) == it["desk"] else 0
+        if ov or desk:
+            scored.append((ov * 3 + desk, p["dt"], p))
+    scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+    return [p for _, _, p in scored[:n]]
+
+
+def build_stories(posts, news):
+    """One page per wire story, /news/<words>-<id>/. Shows only what the feed itself publishes
+    (headline, its short excerpt, its picture) with the source named and linked - the reporting
+    stays the newsroom's. The page keeps the reader on TechForLive with our related guides, the
+    other outlets on the story and the desk's latest. noindex: the indexable pages are our own
+    guides and explainers."""
+    items = news["items"]
+    by = clusters(items)
+    n = 0
+    for it in items:
+        path = story_url(it)
+        desk = it["desk"]
+        deskname = dict(DESK_ORDER).get(desk, "More Tech")
+        others = [o for o in by.get(it.get("cluster"), []) if o["id"] != it["id"]] if it.get("heat", 1) > 1 else []
+        rel = related_guides(it, posts)
+        img = ""
+        if (it.get("image") or "").startswith("https://"):
+            img = (f'<figure class="story-img"><img src="{esc(it["image"])}" alt="{esc(it["title"])}" referrerpolicy="no-referrer" '
+                   f'onerror="this.parentNode.remove()"><figcaption>Image: {esc(it["source"])}</figcaption></figure>')
+        summ = (it.get("summary") or "").replace("[...]", "").replace("[…]", "").strip()
+        excerpt = f'<blockquote class="excerpt"><p>{esc(summ)}</p><cite>{esc(it["source"])}</cite></blockquote>' if summ else ""
+        also = "".join(f'<li><a href="{story_url(o)}"><b>{esc(o["source"])}</b> {esc(o["title"])}</a></li>' for o in others[:8])
+        also = f'<section class="sidebox"><h3>{icon("bolt")} {len({o["source"] for o in others}) + 1} outlets on this story</h3><ul class="also">{also}</ul></section>' if also else ""
+        relh = "".join(post_card(p) for p in rel)
+        relh = f'<section class="related"><h2>Make sense of it: our guides</h2><div class="grid">{relh}</div></section>' if relh else ""
+        side_offer = OFFERS["nordvpn"] if desk in ("security", "apps") else (OFFERS["bitdefender"] if desk in ("pc", "more", "phones") else OFFERS["adguard"])
+        offer = (f'<aside class="offer" style="--oc:{side_offer["color"]}"><span class="ologo">{side_offer["logo"]}</span><div><b>{esc(side_offer["name"])}</b>'
+                 f'<p>{esc(side_offer["line"])}</p></div><a class="btn" href="{side_offer["url"]}" rel="sponsored nofollow noopener" target="_blank">{esc(side_offer["cta"])} →</a></aside>')
+        wire = "".join(news_item(i, compact=True) for i in [i for i in items if i["desk"] == desk and i["id"] != it["id"]][:6])
+        hn = f'<a class="btn ghost" href="{esc(it["hn"])}" rel="nofollow noopener" target="_blank">Hacker News discussion</a>' if it.get("hn") else ""
+        crumb, csch = crumbs([("Live Wire", "/live/"), (deskname, f"/live/{desk}/"), (it["title"][:60], None)])
+        body = f"""
+<article class="wrap story">
+  {crumb}
+  <div class="pgrid">
+    <div class="prose">
+      <p class="eyebrow"><span class="src" style="--c:{src_color(it["source"])}">{esc(initials(it["source"]))}</span> <b>{esc(it["source"])}</b> · {ago_attr(it["published"])} · <a href="/live/{desk}/">{esc(deskname)}</a></p>
+      <h1>{esc(it["title"])}</h1>
+      {img}
+      {excerpt}
+      <div class="readon"><a class="btn" href="{esc(it["link"])}" rel="nofollow noopener" target="_blank">Read the full story at {esc(it["source"])} →</a>{hn}</div>
+      <p class="small">TechForLive shows the headline, the short excerpt and the picture the newsroom shares in its public feed. The reporting belongs to {esc(it["source"])}.</p>
+      {offer}
+    </div>
+    <aside class="side">{also}<div class="sidebox"><h3><span class="dot"></span> More {esc(deskname)} news</h3><div class="wire mini">{wire}</div><a href="/live/{desk}/">The {esc(deskname)} desk →</a></div></aside>
+  </div>
+  {relh}
+</article>"""
+        write(path, page(path, it["title"], (summ or it["title"])[:155], body, schema=[csch], noindex=True, active="live",
+                         og_image=it.get("image") if (it.get("image") or "").startswith("https://") else ""))
+        n += 1
+    return n
+
+
 def build_post(p, posts, news):
     s = SECTIONS.get(p["category"], {"name": "Guides", "slug": "guides", "icon": "spark", "desk": "more"})
     body = render_shortcodes(p["body"], p)
@@ -454,6 +548,10 @@ def build_post(p, posts, news):
            "publisher": {"@type": "Organization", "name": "TechForLive", "logo": {"@type": "ImageObject", "url": URL + "/assets/logo-512.png"}},
            "image": URL + "/assets/og.png"}
     sch = [art, csch] + ([faq_schema(body)] if faq_schema(body) else [])
+    hero = ""
+    if p.get("image"):
+        hero = (f'<figure class="hero-img"><img src="{esc(p["image"])}" alt="{esc(p.get("image_alt") or p["title"])}" '
+                f'fetchpriority="high" decoding="async"></figure>')
     has_aff = "rel=\"sponsored" in body
     disclosure = '<p class="disc">Some links in this guide are affiliate links: if you buy, TechForLive may earn a commission at no extra cost to you. <a href="/disclosure/">Details</a>.</p>' if has_aff else ""
     content = f"""
@@ -465,6 +563,7 @@ def build_post(p, posts, news):
     <p class="lede">{esc(p['description'])}</p>
     <div class="byline">{LOGO_MARK}<span>By <a href="/about/">{esc(CFG['author'])}</a> · Updated <time datetime="{p['updated_dt'].date()}">{fmt_date(p['updated_dt'])}</time> · {mins} min read</span></div>
   </header>
+  {hero}
   <div class="pgrid">
     <div class="prose">{disclosure}{body}</div>
     <aside class="side">
@@ -474,7 +573,7 @@ def build_post(p, posts, news):
   </div>
   <section class="related"><h2>Keep reading</h2><div class="grid">{''.join(post_card(q) for q in rel)}</div></section>
 </article>"""
-    write(f'/{p["slug"]}/', page(f'/{p["slug"]}/', p.get("seo_title") or p["title"], p["description"], content, schema=sch, og_type="article", active="guides",
+    write(f'/{p["slug"]}/', page(f'/{p["slug"]}/', p.get("seo_title") or p["title"], p["description"], content, schema=sch, og_type="article", active="guides", og_image=p.get("image") or "",
                                   extra_head=f'<meta property="article:published_time" content="{p["dt"].isoformat()}"><meta property="article:modified_time" content="{p["updated_dt"].isoformat()}">'))
 
 
@@ -607,6 +706,7 @@ def main():
     news = load_news()
     build_home(posts, news)
     build_live(news)
+    n_story = build_stories(posts, news)
     for p in posts:
         build_post(p, posts, news)
     build_sections(posts, news)
@@ -617,7 +717,7 @@ def main():
     build_404()
     open(os.path.join(PUB, "CNAME"), "w").write("techforlive.com\n")
     open(os.path.join(PUB, ".nojekyll"), "w").write("")
-    print(f"built {len(posts)} posts live, {hidden} scheduled, {len(TOOLS)} tools, {len(news['items'])} news items")
+    print(f"built {len(posts)} posts live, {hidden} scheduled, {len(TOOLS)} tools, {len(news['items'])} news items, {n_story} story pages")
 
 
 if __name__ == "__main__":
