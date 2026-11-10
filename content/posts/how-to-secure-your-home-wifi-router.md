@@ -3,7 +3,7 @@ title: How to secure your home Wi-Fi router in an afternoon
 seo_title: Secure your home Wi-Fi router: the full checklist
 description: Your router has two passwords, and both are probably still the factory ones. Change them, turn on WPA3, update the firmware, and set a guest network.
 date: 2026-11-09T16:46:00
-updated: 2026-11-09T16:46:00
+updated: 2026-11-10T11:00:00
 category: privacy-security
 desk: security
 image: /media/a-wi-fi-6-router-with-antennas-on-a-wooden-desk-97ac232804-1200.webp
@@ -20,6 +20,7 @@ cf_id: 12941
 <table><thead><tr><th>At a glance</th><th>Answer</th></tr></thead><tbody><tr><td>Two passwords</td><td>Wi-Fi and admin, change both</td></tr><tr><td>Encryption</td><td>WPA3, or WPA2 if no WPA3</td></tr><tr><td>Never use</td><td>WEP or the original WPA</td></tr><tr><td>Wi-Fi passphrase</td><td>5 to 7 words, 16+ characters</td></tr><tr><td>Firmware</td><td>Update it, turn on auto-update</td></tr><tr><td>Guest network</td><td>For visitors and smart gadgets</td></tr></tbody></table>
 [[tool:internet-speed-calculator]]
 <h2>First, get into your router&#x27;s settings</h2>
+<figure class="fig"><img src="https://tse2.mm.bing.net/th?q=the+label+on+the+bottom+of+a+wifi+router+showing+the+admin+address&amp;w=560&amp;h=380&amp;c=7&amp;rs=1&amp;p=0&amp;o=5&amp;pid=1.7" alt="the label on the bottom of a wifi router showing the admin address" loading="lazy" decoding="async"></figure>
 <p>A router has two passwords, and they do different jobs. The Wi-Fi password is the one you type to put a phone or TV on the internet. The admin password is the one that opens the settings page itself. Both ship as factory defaults. If someone logs in as admin, they can change your Wi-Fi password, see connected devices, and undo every other step in this guide.</p>
 <p>Keep the label handy while you work, because you will need the default login once. After you change the admin password, write the new one down and store it with your other passwords, ideally in a password manager. If you forget it, the only fix is a factory reset, which wipes every setting and starts over. Hold the small reset button on the back of the router for about ten seconds, until the lights blink, then set it up again from scratch.</p>
 <p>If the label is worn off or missing, your phone can tell you the address. On iPhone, open Settings &gt; Wi-Fi, tap the info button next to your network, and look for the Router entry. On Android, open Settings &gt; Network &amp; internet &gt; Internet, tap the gear next to your network, and look for Gateway. Either number is the settings address. Some newer routers skip the browser entirely and use the maker&#x27;s phone app instead, which walks you through the same steps.</p>
@@ -35,6 +36,7 @@ cf_id: 12941
 <table><caption>Home Wi-Fi encryption choices</caption><thead><tr><th>Setting</th><th>What it means</th><th>What to do</th></tr></thead><tbody><tr><td>WPA3 Personal</td><td>Newest and strongest home encryption</td><td>Use it if your router offers it</td></tr><tr><td>WPA2 with AES</td><td>Strong and widely supported</td><td>Use it if there is no WPA3</td></tr><tr><td>WPA or WEP</td><td>Old and easy to break</td><td>Never use; update firmware or replace the router</td></tr></tbody></table>
 [[offer:bitdefender]]
 <h2>Update the firmware, then set the three extra switches</h2>
+<figure class="fig"><img src="https://tse4.mm.bing.net/th?q=a+router+settings+page+showing+a+firmware+update+button&amp;w=560&amp;h=380&amp;c=7&amp;rs=1&amp;p=0&amp;o=5&amp;pid=1.7" alt="a router settings page showing a firmware update button" loading="lazy" decoding="async"></figure>
 <p>Firmware is the built-in software that runs your router, and makers release updates that fix security holes as they are found. Unlike your phone, most routers do not install these by themselves, so an unpatched router can carry years of known holes. Register your router with the maker so you hear about new versions, and check the maker&#x27;s website if your router has no update button. If your internet company gave you the router, ask them whether it updates itself.</p>
 <p>The three extra switches take five minutes and close three quiet doors. A guest network keeps visitors and smart gadgets, like cameras and speakers, away from your computers and phones. Turning off WPS removes a shortcut that can be abused. Turning off remote management means the settings page only works from inside your home. None of these changes how your Wi-Fi feels day to day.</p>
 <p>Every so often, open the connected devices list in your router settings and look for names you do not recognise. A device you do not own is a sign someone has your password, and changing the Wi-Fi password locks them out. If an update fails halfway, do not unplug the router. Wait a few minutes, then try again, and check the maker&#x27;s site for help if the page stays stuck.</p>
