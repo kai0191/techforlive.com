@@ -3,7 +3,7 @@ title: Phone hot while charging: port heat or battery heat? How to tell
 seo_title: Phone hot while charging: port heat or battery heat?
 description: Where the heat sits and how quickly it fades after unplugging helps identify the cause.
 date: 2026-11-11T15:17:00
-updated: 2026-11-12T10:58:00
+updated: 2026-11-12T11:14:00
 category: phones-batteries
 desk: phones
 image: https://tse1.mm.bing.net/th?q=phone+overheating+while+charging&w=820&h=462&c=7&rs=1&p=0&o=5&pid=1.7
@@ -50,6 +50,7 @@ cf_id: 11171
 <table><caption>Battery temperature readings and what they suggest</caption><thead><tr><th>Reading while charging</th><th>What it means</th><th>What to do</th></tr></thead><tbody><tr><td>Warm while charging, then cooling</td><td>Often normal</td><td>Monitor the pattern</td></tr><tr><td>Reading keeps climbing</td><td>Abnormal charging behaviour</td><td>Stop demanding use and check the charger</td></tr><tr><td>Warm while idle and unplugged</td><td>Battery or software problem</td><td>Check battery use and arrange service</td></tr><tr><td>Warning on screen</td><td>The phone is too hot</td><td>Stop charging and let it cool completely</td></tr></tbody></table>
 <div class="note"><b>Check this:</b> Use your phone&#x27;s warning messages and repeated readings as the guide, not one number.</div>
 <h2>Charger, cable and wireless faults can create local heat</h2>
+<figure class="fig"><img src="/media/a-coiled-usb-phone-charging-cable-on-a-desk-48436990de-800.webp" alt="A coiled USB phone charging cable on a desk" loading="lazy" decoding="async"><figcaption>Photo: Wikimedia Commons, CC BY-SA 3.0</figcaption></figure>
 <p>Faulty charging gear is often the cheapest problem to fix. Use the manufacturer&#x27;s charger or a reputable certified alternative matching the phone&#x27;s requirements. Avoid damaged or uncertified adapters.</p>
 <p>Replace a cable if its jacket is frayed, its plug wobbles or charging repeatedly disconnects. Test one replacement item at a time so you can identify the faulty part.</p>
 <p>Wireless charging transfers less efficiently than a cable. Centre the phone on the pad and remove thick cases, metal plates, magnets and cards. Keep coins and other metal objects away from the pad.</p>
