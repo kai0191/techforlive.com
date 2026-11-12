@@ -3,7 +3,7 @@ title: How to Block Websites on a Child's Phone: iPhone and Android
 seo_title: Block Websites on a Child's Phone: iPhone and Android
 description: Block a website on your child's iPhone or Android with the free tools already on it. Steps for Screen Time, Family Link and Family Safety.
 date: 2026-11-11T14:11:00
-updated: 2026-11-11T14:11:00
+updated: 2026-11-12T10:58:00
 category: privacy-security
 desk: security
 image: https://tse4.mm.bing.net/th?q=how+to+block+websites+on+a+child%27s+phone&w=820&h=462&c=7&rs=1&p=0&o=5&pid=1.7

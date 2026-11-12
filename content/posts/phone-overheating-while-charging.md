@@ -3,7 +3,7 @@ title: Phone hot while charging: port heat or battery heat? How to tell
 seo_title: Phone hot while charging: port heat or battery heat?
 description: Where the heat sits and how quickly it fades after unplugging helps identify the cause.
 date: 2026-11-11T15:17:00
-updated: 2026-11-11T15:17:00
+updated: 2026-11-12T10:58:00
 category: phones-batteries
 desk: phones
 image: https://tse1.mm.bing.net/th?q=phone+overheating+while+charging&w=820&h=462&c=7&rs=1&p=0&o=5&pid=1.7
@@ -24,6 +24,7 @@ cf_id: 11171
 <table><thead><tr><th>At a glance</th><th>Answer</th></tr></thead><tbody><tr><td>Normal fast-charge heat</td><td>Warm back while charging</td></tr><tr><td>Unplug test</td><td>Cooling you can feel once unplugged</td></tr><tr><td>Battery service advice</td><td>Follow the phone maker&#x27;s battery health recommendation</td></tr><tr><td>Temperature warning</td><td>Unplug and let it cool</td></tr><tr><td>Swollen battery action</td><td>Stop charging and get service</td></tr><tr><td>Slow-charge heat level</td><td>Barely warm is usually normal</td></tr></tbody></table>
 [[tool:battery-life-calculator]]
 <h2>Heat near the port points to the charging connection</h2>
+<figure class="fig"><img src="https://tse1.mm.bing.net/th?q=close-up+of+lint+in+a+USB-C+charging+port&amp;w=560&amp;h=380&amp;c=7&amp;rs=1&amp;p=0&amp;o=5&amp;pid=1.7" alt="close-up of lint in a USB-C charging port" loading="lazy" decoding="async"></figure>
 <p>The most useful clue is where the heat sits. Touch the bottom edge beside the port, the middle of the back, and the top of the phone. If the bottom edge is clearly hotter, suspect the charger, cable or port before the battery.</p>
 <p>A frayed cable, clogged port or failing charging brick can create electrical resistance. Resistance produces heat at the connection. Pocket lint inside a USB-C port is common, especially on phones carried in pockets.</p>
 <p>A cracked brick or uncertified charger can produce the same pattern near its plug or the phone&#x27;s port. Stop using damaged gear. Inspect the connector and port, then test with a certified charger and a known-good cable.</p>
