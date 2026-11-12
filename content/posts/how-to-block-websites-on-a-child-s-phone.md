@@ -3,7 +3,7 @@ title: How to Block Websites on a Child's Phone: iPhone and Android
 seo_title: Block Websites on a Child's Phone: iPhone and Android
 description: Block a website on your child's iPhone or Android with the free tools already on it. Steps for Screen Time, Family Link and Family Safety.
 date: 2026-11-11T14:11:00
-updated: 2026-11-12T10:58:00
+updated: 2026-11-12T11:13:00
 category: privacy-security
 desk: security
 image: https://tse4.mm.bing.net/th?q=how+to+block+websites+on+a+child%27s+phone&w=820&h=462&c=7&rs=1&p=0&o=5&pid=1.7
@@ -31,6 +31,7 @@ cf_id: 13569
 <p>Age decides how strict to go. Younger children do best with approved sites only, where every new site needs your say-so. An older child can handle a blocked list plus the adult-content filter. They can still ask for a site when school or a hobby needs it. Revisit the settings every few months, because children grow and last year&#x27;s settings may block homework today.</p>
 <table><thead><tr><th>Tool</th><th>Works on</th><th>What it blocks</th><th>Weak spot</th></tr></thead><tbody><tr><td>Screen Time</td><td>iPhone and iPad</td><td>Adult sites, or named sites</td><td>Chrome and other browsers are not covered</td></tr><tr><td>Family Link</td><td>Android phones and Chromebooks</td><td>Explicit sites, or named sites</td><td>Stops if your child signs out of Chrome</td></tr><tr><td>Family Safety</td><td>Windows, Xbox, and phones through Edge</td><td>Mature sites, or named sites</td><td>Filters Edge only, not other browsers</td></tr></tbody></table>
 <h2>Block websites on every browser at once</h2>
+<figure class="fig"><img src="/media/the-back-of-a-home-wi-fi-router-showing-its-networ-7e5648a8e5-800.webp" alt="The back of a home Wi-Fi router showing its network ports" loading="lazy" decoding="async"><figcaption>Photo: Wikimedia Commons, CC0</figcaption></figure>
 <p>Phone controls stop at the phone. Screen Time or Family Link blocks do nothing for a different device on the same Wi-Fi. Router blocks stop helping once your child leaves the house on mobile data. The home network is the next layer. Your router, the box that brings the internet into your house, can block a site for every device that connects through it. That covers the phone, the tablet, the laptop and the games console in one move.</p>
 <p>Most routers have a parental controls or website blocking page in their settings. The address and password are usually printed on a sticker on the router. Open the settings on a computer, find the blocking page, and add the address you want stopped. Try a family DNS filter instead. It answers with a block page or an error when a device asks for a blocked site. The exact response depends on the provider.</p>
 <p>This layer has limits, and you should know them before you rely on it. Router blocks only work on your home Wi-Fi. Mobile data, a friend&#x27;s Wi-Fi and a VPN, a tool that routes traffic through another server, all step around it. Keep the phone controls as the main block, and treat the router as backup. Check the block from your child&#x27;s phone on home Wi-Fi. Then check it again on mobile data, and you will see which layer is doing the work.</p>
