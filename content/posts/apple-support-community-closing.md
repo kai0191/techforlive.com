@@ -3,7 +3,7 @@ title: Apple Support Community is closing: save your threads now
 seo_title: Apple Support Community closes Nov 20: save your threads
 description: MacRumors reports Apple's help forum closes on 20 November 2026. Save the threads you rely on before then, and learn where to get help after it goes.
 date: 2026-11-12T15:46:00
-updated: 2026-11-12T15:46:00
+updated: 2026-11-13T10:58:00
 category: internet-apps
 desk: apps
 image: https://tse4.mm.bing.net/th?q=apple+support+community+closing&w=820&h=462&c=7&rs=1&p=0&o=5&pid=1.7
@@ -30,6 +30,7 @@ cf_id: 13831
 <p>Copy the fix itself into your notes too. A PDF is a backup. A short note is what you will actually open next time. Paste the key steps, the setting path and the model it worked on. Add the date you saved it. If the fix came from a member whose answers you trust, note the name. Your own posts are worth saving the same way, because Apple has said nothing about keeping them.</p>
 <ol class="steps"><li>Find the threads you use most and open them now.</li><li>Save each one as a PDF from the Print menu.</li><li>On an iPhone or iPad, save it from Safari with Share, then Print.</li><li>Give the PDF a clear name and keep it in one folder.</li><li>Copy the fix itself into your notes as well.</li></ol>
 <h2>Where to get help after the forums close</h2>
+<figure class="fig"><img src="https://tse2.mm.bing.net/th?q=apple+support+community+closing+Where+get+help+forums+close&amp;w=560&amp;h=380&amp;c=7&amp;rs=1&amp;p=0&amp;o=5&amp;pid=1.7" alt="apple support community closing - Where to get help after the forums close" loading="lazy" decoding="async"></figure>
 <p>Apple&#x27;s own support site is the official replacement. The closing notice links to support.apple.com, where Apple says you can continue to find trusted guidance and support. Start there for step-by-step guides, warranty checks and repair booking. The Apple Support app on your iPhone or iPad does the same job and can start a chat or a call with Apple.</p>
 <p>For a problem with a clear error, the fastest route is usually a chat or a phone call. Open the Apple Support app or support.apple.com, pick your device, describe the fault in a sentence, and choose chat or call. Have your serial number ready. On an iPhone or iPad, find it in Settings, then General, then About. On a Mac, open the Apple menu, then About This Mac.</p>
 <p>For a hardware fault, book a Genius Bar visit at an Apple Store or an authorised repair shop. Back up the device first. A repair visit takes longer than a forum search, so keep the saved threads from the last section handy. They often hold the test that tells you whether the fault is software or hardware before you leave the house.</p>

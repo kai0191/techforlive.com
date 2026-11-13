@@ -3,7 +3,7 @@ title: Raspberry Pi Pico vs Arduino Nano: which board wins?
 seo_title: Pico vs Arduino Nano: pick the right board first
 description: Pico vs Nano: speed, memory, pins and voltage compared in plain English, so you buy the right board for your first robot or gadget.
 date: 2026-11-12T14:50:00
-updated: 2026-11-12T14:50:00
+updated: 2026-11-13T10:58:00
 category: robotics-diy
 desk: science
 image: /media/a-raspberry-pi-pico-microcontroller-board-9df16469d3-1200.webp
@@ -20,6 +20,7 @@ cf_id: 13836
 <table><thead><tr><th>At a glance</th><th>Answer</th></tr></thead><tbody><tr><td>Pico chip</td><td>RP2040, dual-core</td></tr><tr><td>Pico clock</td><td>Up to 133 MHz</td></tr><tr><td>Pico memory</td><td>264 KB SRAM, 2 MB flash</td></tr><tr><td>Nano chip</td><td>ATmega328P, single-core</td></tr><tr><td>Nano clock</td><td>16 MHz</td></tr><tr><td>Nano memory</td><td>2 KB SRAM, 32 KB flash</td></tr><tr><td>Logic voltage</td><td>Pico 3.3 V, Nano 5 V</td></tr></tbody></table>
 [[tool:led-resistor-calculator]]
 <h2>Speed and memory: what the numbers mean for your project</h2>
+<figure class="fig"><img src="https://tse1.mm.bing.net/th?q=raspberry+pi+pico+vs+arduino+nano+Speed+memory+numbers+mean+project&amp;w=560&amp;h=380&amp;c=7&amp;rs=1&amp;p=0&amp;o=5&amp;pid=1.7" alt="raspberry pi pico vs arduino nano - Speed and memory: what the numbers mean for your project" loading="lazy" decoding="async"></figure>
 <p>Clock speed is how fast the chip ticks. The Pico ticks at up to 133 MHz, about eight times the Nano&#x27;s 16 MHz. It also has two cores, so it can do two jobs at once. It can read a sensor on one core while it drives motors on the other. The Nano has one core doing one job at a time. For a blinking light, none of this matters. For a robot that reads sensors and steers at the same time, it does.</p>
 <p>Memory while running, called SRAM, is the space your program uses as it works. The Pico has 264 KB of it. The Nano has 2 KB. That gap is the real difference between the boards. A program that stores a small map or a list of readings will fit on the Pico. It will run out of room on the Nano. The Nano&#x27;s 2 KB is its tightest limit, and it is the limit beginners hit first.</p>
 <p>Flash is where your code lives when the power is off. The Pico has 2 MB. The Nano has 32 KB, and 2 KB of that is taken by its bootloader, the small program that loads your code. A big library, such as one for a display, can fill a Nano on its own. The same library fits on the Pico with room to spare. If your project needs a screen or many sensors, the Pico&#x27;s memory is the safer bet.</p>
